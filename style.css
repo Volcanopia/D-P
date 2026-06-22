@@ -1,0 +1,165 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    padding: 20px;
+}
+
+header {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 24px;
+}
+
+select {
+    padding: 8px;
+}
+
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.card img {
+    width: 100%;
+    /* height: 300px; */
+    object-fit: cover;
+    transition: 1s;
+}
+
+.card.grayscale img {
+    filter: grayscale(100%);
+    opacity: 0.5;
+    transform: scale(0.98);
+}
+
+.card-info {
+    padding: 12px;
+}
+
+.card-number {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.card-extension {
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* gap: 12px; */
+}
+
+.quantity-controls button {
+    width: 2em;
+    /* height:auto; */
+    /* border: none; */
+    border:none;
+    border-radius: 2em;
+    cursor: pointer;
+    font-size: 18px;
+    color: white;
+}
+
+.quantity {
+    min-width: 30px;
+    text-align: center;
+    font-size: 18px;
+}
+
+.quantity-controls button:disabled {
+    background: #d9d9d9;
+    color: #999;
+    border: 1px solid #747474;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
+.stats-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.extension-stat {
+    background: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
+    font-weight: bold;
+}
+
+.S1 {
+    background-color: #F5C195;
+    border: 1.5px solid #DD9365;
+}
+.S1button{
+    background-color: #DD9365;
+}
+.S2 {
+    background-color: #AE9ABC;
+    border: 1.5px solid #A278AF;
+}
+.S2button{
+    background-color: #A278AF;
+}
+.S3 {
+    background-color: #F2F9CA;
+    border: 1.5px solid #488A3D;
+}
+.S3button{
+    background-color: #488A3D;
+}
+.extension-section {
+    margin-bottom: 40px;
+}
+
+.extension-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 3px solid #ddd;
+}
+
+.extension-header h2 {
+    margin: 0;
+}
+
+.extension-progress {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+@media (min-width: 600px) {
+body {
+    margin :auto 10em;
+}
+.cards-grid {
+    grid-template-columns: repeat(5, 1fr);
+}
+}
