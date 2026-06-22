@@ -144,7 +144,7 @@ function renderCards() {
 
                         <button class="minus-btn ${card.extension}button"
     ${card.quantite === 0 ? 'disabled' : ''}
-    onclick="changeQuantity('${card.numero}', -1)">
+    onclick="changeQuantity('${card.numero}',${card.extension}, -1)">
     -
 </button>
 
@@ -152,7 +152,7 @@ function renderCards() {
                             ${card.quantite}
                         </span>
 
-                        <button class="${card.extension}button" onclick="changeQuantity('${card.numero}', 1)">
+                        <button class="${card.extension}button" onclick="changeQuantity('${card.numero}',${card.extension}, 1)">
                         +
                     </button>
 
@@ -202,7 +202,7 @@ function renderStats() {
     });
 }
 
-function changeQuantity(numero, delta) {
+function changeQuantity(extension, numero, delta) {
 
     const card = cards.find(c => c.numero === numero);
 
