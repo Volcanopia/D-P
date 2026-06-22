@@ -228,7 +228,6 @@ function saveLocalData() {
 function loadLocalData() {
 
     const saved = localStorage.getItem("collection");
-
     if (saved) {
         cards = JSON.parse(saved);
         loadExtensions();
@@ -243,5 +242,6 @@ function loadLocalData() {
 filter.addEventListener("change", renderCards);
 
 (async () => {
+    if (loadLocalData()) { return; }
     await loadCards();
 })();
