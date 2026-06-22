@@ -69,62 +69,6 @@ function loadExtensions() {
     });
 }
 
-// function renderCards() {
-//     const selectedExtension = filter.value;
-
-//     let filteredCards = cards;
-
-//     if (selectedExtension !== "all") {
-//         filteredCards = cards.filter(
-//             card => card.extension === selectedExtension
-//         );
-//     }
-
-//     container.innerHTML = "";
-
-//     filteredCards.forEach(card => {
-
-//         const cardElement = document.createElement("div");
-
-//         cardElement.className =
-//             card.quantite === 0
-//             ? "card grayscale "+card.extension
-//             : "card "+card.extension;
-
-//         cardElement.innerHTML = `
-//             <img src="${card.image}" alt="${card.nom}">
-
-//             <div class="card-info">
-//                 <div class="card-number">
-//                     N° ${card.numero}
-//                 </div>
-
-//                 <div class="card-extension">
-// ${card.extension}
-//                 </div>
-
-//                 <div class="quantity-controls">
-//                     <button class="minus-btn ${card.extension}button"
-//     ${card.quantite === 0 ? 'disabled' : ''}
-//     onclick="changeQuantity('${card.numero}', -1)">
-//     -
-// </button>
-
-//                     <span class="quantity">
-//                         ${card.quantite}
-//                     </span>
-
-//                     <button class="${card.extension}button" onclick="changeQuantity('${card.numero}', 1)">
-//                         +
-//                     </button>
-//                 </div>
-//             </div>
-//         `;
-
-//         container.appendChild(cardElement);
-//     });
-// }
-
 function renderCards() {
 
     const selectedExtension = filter.value;
@@ -186,9 +130,6 @@ function renderCards() {
                 card.quantite === 0
                     ? "card grayscale " + card.extension
                     : "card " + card.extension;
-
-            // const imagePath =
-            // `images/${card.extension}/${card.numero}.jpeg`;
 
             cardElement.innerHTML = `
                 <img src="${card.image}" alt="${card.nom}">
