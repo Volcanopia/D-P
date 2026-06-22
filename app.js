@@ -196,11 +196,7 @@ function renderCards() {
                 <div class="card-info">
 
                     <div class="card-number">
-                        ${card.numero}
-                    </div>
-
-                    <div class="card-extension">
-                        ${card.nom}
+                        N°${card.numero}
                     </div>
 
                     <div class="quantity-controls">
