@@ -32,6 +32,7 @@ select {
 }
 
 .card {
+    position:relative;
     background: white;
     border-radius: 12px;
     overflow: hidden;
@@ -155,11 +156,38 @@ select {
     font-weight: bold;
     font-size: 1.1rem;
 }
+.foil-star {
+    position: absolute;
+    right: 2px;
+
+    width: 32px;
+    height: 32px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 24px;
+    cursor: pointer;
+
+    color: #bdbdbd;
+
+    transition:
+        color 0.25s ease,
+        transform 0.25s ease;
+
+    z-index: 10;
+}
+.foil-star.active {
+    color: gold;
+    -webkit-text-stroke: 1px #a88e06;
+    text-shadow: 0 0 4px rgba(255, 215, 0, .7), 0 0 8px rgba(255, 215, 0, .5);
+}
 @media (min-width: 600px) {
 body {
     margin :auto 10em;
 }
 .cards-grid {
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(10, 1fr);
 }
 }

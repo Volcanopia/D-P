@@ -132,6 +132,11 @@ function renderCards() {
                     : "card " + card.extension;
 
             cardElement.innerHTML = `
+                    <div class="foil-star ${card.foil ? 'active' : ''}"
+                onclick="toggleFoil('${card.numero}','${card.extension}')">
+                ★
+            </div>
+
                 <img src="${card.image}" alt="${card.nom}">
 
                 <div class="card-info">
@@ -202,7 +207,21 @@ function renderStats() {
     });
 }
 
-function changeQuantity(numero, extension , delta) {
+function toggleFoil(numero, extension) {
+
+    const card = cards.find(
+        c => c.numero === numero && c.extension === extension
+    );
+
+    if (!card) return;
+
+    card.foil = !card.foil;
+
+    saveLocalData();
+    renderCards();
+}
+
+function changeQuantity(numero, extension, delta) {
 
     const card = cards.find(c => c.numero === numero && c.extension === extension);
     if (!card) return;
