@@ -398,8 +398,8 @@ async function publishCollection() {
         .maybeSingle();
 
     let share_code;
-console.log("owner_id = " + owner_id);
-console.log("payload size = " + payload.length);
+    console.log("owner_id = " + owner_id);
+    console.log("payload size = " + payload.length);
     if (existing) {
 
         share_code = existing.share_code;
@@ -428,7 +428,7 @@ console.log("payload size = " + payload.length);
                 share_code,
                 cards: payload
             });
-            console.log(JSON.stringify({ error }));
+        console.log(JSON.stringify({ error }));
 
         if (error) {
             debug(error.message);
@@ -472,10 +472,21 @@ window.addEventListener("DOMContentLoaded", () => {
     // const filter = document.getElementById("extensionFilter");
     const publishButton = document.getElementById("publishBtn");
     const copyBtn = document.getElementById("copyLinkBtn");
+    const backBtn = document.getElementById("backBtn");
+
+    backBtn.addEventListener("click", () => {
+        // enlève le paramètre URL
+        const url = new URL(window.location.href);
+        url.searchParams.delete("collection");
+
+        window.location.href = url.toString();
+    });
 
     // filter.addEventListener("change", renderCards);
     if (readOnly) {
+        backBtn.style.display = "block";
         publishButton.style.display = "none";
+        document.getElementsByTagName("h1")[0].textContent=`Collection partagée`;
     } else {
         publishButton.addEventListener("click", publishCollection);
     }
