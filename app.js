@@ -30,8 +30,8 @@ function debug(value) {
 try {
 
     supabase = window.supabase.createClient(
-        "Monsite",
-        "Maclé"
+        "https://qqxlonawpcahvztvsskd.supabase.co",
+        "sb_publishable_ovMNqNx-sjcybaUKDCTdUg_HanedBW6"
     );
 } catch (e) {
     debug("Erreur createClient");
