@@ -10,17 +10,39 @@
 
     <header>
    <h1>Ma Collection</h1>
+<button id="publishBtn">Publier</button>
    <select id="extensionFilter">
        <option value="all">Toutes les extensions</option>
    </select>
+<div id="shareBox" style="display:none; margin-top:10px; width: 100%;">
+    <p>Lien de partage :</p>
+
+    <input id="shareLink" type="text" readonly style="width:100%;">
+    <button id="copyLinkBtn">Copier</button>
+</div>
 </header>
 <div id="statsContainer" class="stats-container"></div>
 
     <main>
+<!-- <div id="debug" style="
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    max-height:200px;
+    overflow:auto;
+    background:#111;
+    color:#0f0;
+    font-family:monospace;
+    font-size:12px;
+    padding:10px;
+    z-index:99999;">
+</div> -->
         <div id="cardsContainer"></div>
     </main>
 
-    <script src="app.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="app.js"></script>
 
 </body>
 </html>
