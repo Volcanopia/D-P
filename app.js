@@ -26,6 +26,15 @@ function debug(value) {
     }
 }
 
+// Id utilisateur
+let userId = localStorage.getItem("userId");
+
+if (!userId) {
+    userId = crypto.randomUUID();
+    localStorage.setItem("userId", userId);
+}
+localStorage.setItem("userId", userId);
+
 // Appel à supabase
 try {
 
@@ -358,21 +367,18 @@ filter.addEventListener("change", renderCards);
 
 // Publication de la collection
 async function publishCollection() {
-    console.log(readOnly);
     if (readOnly)
         return;
 
     console.log("Publication...");
 
     const owner_id = localStorage.getItem("userId");
-console.log(owner_id);
     if (!owner_id) {
         debug("No owner_id");
         return;
     }
 
     const payload = Object.values(cards);
-    console.log(payload);
     //debug(payload);
     // 1. Vérifier si déjà existant
     const { data: existing } = await supabase
@@ -382,7 +388,6 @@ console.log(owner_id);
         .maybeSingle();
 
     let share_code;
-    console.log(shareCode);
 console.log("owner_id = " + owner_id);
 console.log("payload size = " + payload.length);
     if (existing) {
