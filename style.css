@@ -148,7 +148,7 @@ select {
 
 #publishBtn, #copyLinkBtn {
     border-radius: 2em;
-    border: 2px solid grey;
+    border: 2px solid rgb(116, 116, 116);
     padding: 1em;
     font-family: monospace;
     transition: 1s background;
