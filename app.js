@@ -358,19 +358,21 @@ filter.addEventListener("change", renderCards);
 
 // Publication de la collection
 async function publishCollection() {
+    console.log(readOnly);
     if (readOnly)
         return;
 
-    debug("Publication...");
+    console.log("Publication...");
 
     const owner_id = localStorage.getItem("userId");
-
+console.log(owner_id);
     if (!owner_id) {
         debug("No owner_id");
         return;
     }
 
     const payload = Object.values(cards);
+    console.log(payload);
     //debug(payload);
     // 1. Vérifier si déjà existant
     const { data: existing } = await supabase
@@ -380,6 +382,7 @@ async function publishCollection() {
         .maybeSingle();
 
     let share_code;
+    console.log(shareCode);
 console.log("owner_id = " + owner_id);
 console.log("payload size = " + payload.length);
     if (existing) {
@@ -456,7 +459,6 @@ window.addEventListener("DOMContentLoaded", () => {
     const copyBtn = document.getElementById("copyLinkBtn");
 
     // filter.addEventListener("change", renderCards);
-
     if (readOnly) {
         publishButton.style.display = "none";
     } else {
