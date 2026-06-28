@@ -436,7 +436,7 @@ console.log("payload size = " + payload.length);
         }
     }
 
-    const link = `${location.origin}?collection=${share_code}`;
+    const link = `${location.origin}/D-P/?collection=${share_code}`;
 
     const box = document.getElementById("shareBox");
     const input = document.getElementById("shareLink");
