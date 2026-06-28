@@ -30,8 +30,8 @@ function debug(value) {
 try {
 
     supabase = window.supabase.createClient(
-        "https://qqxlonawpcahvztvsskd.supabase.co",
-        "sb_publishable_ovMNqNx-sjcybaUKDCTdUg_HanedBW6"
+        "Monsite",
+        "Maclé"
     );
 } catch (e) {
     debug("Erreur createClient");
@@ -339,22 +339,22 @@ function getActiveCards() {
 }
 
 filter.addEventListener("change", renderCards);
-const publishButton = document.getElementById("publishBtn");
-if (readOnly)
-    publishButton.style.display = "none";
-else
-    publishButton.addEventListener("click", publishCollection);
-document.getElementById("copyLinkBtn").addEventListener("click", async () => {
+// const publishButton = document.getElementById("publishBtn");
+// if (readOnly)
+//     publishButton.style.display = "none";
+// else
+//     publishButton.addEventListener("click", publishCollection);
+// document.getElementById("copyLinkBtn").addEventListener("click", async () => {
 
-    const input = document.getElementById("shareLink");
+//     const input = document.getElementById("shareLink");
 
-    try {
-        await navigator.clipboard.writeText(input.value);
-        debug("Lien copié !");
-    } catch (e) {
-        debug("Erreur copie : " + e.message);
-    }
-});
+//     try {
+//         await navigator.clipboard.writeText(input.value);
+//         debug("Lien copié !");
+//     } catch (e) {
+//         debug("Erreur copie : " + e.message);
+//     }
+// });
 
 // Publication de la collection
 async function publishCollection() {
@@ -448,3 +448,30 @@ console.log("payload size = " + payload.length);
     renderCards();
 
 })();
+
+window.addEventListener("DOMContentLoaded", () => {
+
+    // const filter = document.getElementById("extensionFilter");
+    // const publishButton = document.getElementById("publishBtn");
+    // const copyBtn = document.getElementById("copyLinkBtn");
+
+    // filter.addEventListener("change", renderCards);
+
+    if (readOnly) {
+        publishButton.style.display = "none";
+    } else {
+        publishButton.addEventListener("click", publishCollection);
+    }
+
+    copyBtn.addEventListener("click", async () => {
+        const input = document.getElementById("shareLink");
+
+        try {
+            await navigator.clipboard.writeText(input.value);
+            debug("Lien copié !");
+        } catch (e) {
+            debug("Erreur copie : " + e.message);
+        }
+    });
+
+});
