@@ -29,6 +29,16 @@ function debug(value) {
 // Id utilisateur
 let userId = localStorage.getItem("userId");
 
+// Génération du code de partage
+function generateCode(length = 6) {
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    let code = "";
+    for (let i = 0; i < length; i++) {
+        code += chars[Math.floor(Math.random() * chars.length)];
+    }
+    return code;
+}
+
 if (!userId) {
     userId = crypto.randomUUID();
     localStorage.setItem("userId", userId);
