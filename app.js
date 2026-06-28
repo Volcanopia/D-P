@@ -380,7 +380,8 @@ async function publishCollection() {
         .maybeSingle();
 
     let share_code;
-
+console.log("owner_id = " + owner_id);
+console.log("payload size = " + payload.length);
     if (existing) {
 
         share_code = existing.share_code;
@@ -409,6 +410,7 @@ async function publishCollection() {
                 share_code,
                 cards: payload
             });
+            console.log(JSON.stringify({ error }));
 
         if (error) {
             debug(error.message);
