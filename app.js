@@ -452,8 +452,8 @@ console.log("payload size = " + payload.length);
 window.addEventListener("DOMContentLoaded", () => {
 
     // const filter = document.getElementById("extensionFilter");
-    // const publishButton = document.getElementById("publishBtn");
-    // const copyBtn = document.getElementById("copyLinkBtn");
+    const publishButton = document.getElementById("publishBtn");
+    const copyBtn = document.getElementById("copyLinkBtn");
 
     // filter.addEventListener("change", renderCards);
 
