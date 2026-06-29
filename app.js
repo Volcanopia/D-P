@@ -4,6 +4,7 @@ const shareCode = params.get("collection");
 
 let sharedCards = null;
 const readOnly = !!shareCode;
+let displayGold = false;
 
 // Fonction debug
 function debug(value) {
@@ -95,6 +96,7 @@ async function loadSharedCollection(jsonCards) {
         return {
             ...card,
             quantite: saved?.quantite ?? 0,
+            gold: saved?.gold ?? 0,
             foil: saved?.foil ?? false
         };
     });
@@ -110,21 +112,45 @@ async function loadCards() {
     const saved = localStorage.getItem("collection");
 
     if (saved) {
+
         const savedCards = JSON.parse(saved);
 
-        const quantities = Object.fromEntries(
-            savedCards.map(card => [
-                card.numero,
-                card.quantite
-            ])
+        // Recherche rapide des cartes existantes
+        const existing = new Set(
+            savedCards.map(c => `${c.extension}-${c.numero}`)
         );
 
-        cards = jsonCards.map(card => ({
-            ...card,
-            quantite: quantities[card.numero] ?? card.quantite
-        }));
+        let modified = false;
+
+        jsonCards.forEach(card => {
+
+            const key = `${card.extension}-${card.numero}`;
+
+            if (!existing.has(key)) {
+                savedCards.push({
+                    ...card,
+                    quantite: 0,
+                    gold: 0,
+                    foil: false
+                });
+
+                modified = true;
+            }
+        });
+
+        if (modified) {
+            localStorage.setItem(
+                "collection",
+                JSON.stringify(savedCards)
+            );
+        }
+
+        cards = savedCards;
+
     } else {
+
         cards = jsonCards;
+
     }
 
     loadExtensions();
@@ -159,8 +185,11 @@ function loadExtensions() {
     });
 }
 
-function renderCards() {
+function getQuantity(card) {
+    return displayGold ? card.gold : card.quantite;
+}
 
+function renderCards() {
     const selectedExtension = filter.value;
     container.innerHTML = "";
 
@@ -182,7 +211,7 @@ function renderCards() {
             source.filter(c => c.extension === extension);
 
         const obtained =
-            extensionCards.filter(c => c.quantite > 0).length;
+            extensionCards.filter(c => getQuantity(c) > 0).length;
 
         const total =
             extensionCards.length;
@@ -218,15 +247,15 @@ function renderCards() {
                 document.createElement("div");
 
             cardElement.className =
-                card.quantite === 0
+                getQuantity(card) === 0
                     ? "card grayscale " + card.extension
                     : "card " + card.extension;
 
             cardElement.innerHTML = `
-                    <div class="foil-star ${card.foil ? 'active' : ''}"
+                    ${displayGold ? `` : `<div class="foil-star ${card.gold > 0 ? 'active' : ''}"
                 onclick="toggleFoil('${card.numero}','${card.extension}')">
                 ★
-            </div>
+            </div>`}
 
                 <img src="${card.image}" alt="${card.nom}">
 
@@ -238,15 +267,15 @@ function renderCards() {
 
                     <div class="quantity-controls">
 ${readOnly
-                    ? `<span class="quantity">Qté: ${card.quantite}<span/>`
+                    ? `<span class="quantity ${displayGold ? "gold" : ""}">Qté: ${displayGold ? card.gold : card.quantite}<span/>`
                     : `<button class="minus-btn ${card.extension}button"
-    ${card.quantite === 0 ? 'disabled' : ''}
+    ${getQuantity(card) === 0 ? "disabled" : ""}
     onclick="changeQuantity('${card.numero}','${card.extension}', -1)">
     -
 </button>
 
-                        <span class="quantity">
-                            ${card.quantite}
+                        <span class="quantity ${displayGold ? "gold" : ""}">
+                            ${getQuantity(card)}
                         </span>
 
                         <button class="${card.extension}button" onclick="changeQuantity('${card.numero}','${card.extension}', 1)">
@@ -285,7 +314,7 @@ function renderStats() {
         const total = extensionCards.length;
 
         const obtained =
-            extensionCards.filter(c => c.quantite > 0).length;
+            extensionCards.filter(c => getQuantity(c) > 0).length;
 
         const percent =
             Math.round((obtained / total) * 100);
@@ -320,10 +349,13 @@ function changeQuantity(numero, extension, delta) {
     const card = cards.find(c => c.numero === numero && c.extension === extension);
     if (!card) return;
 
-    card.quantite += delta;
+    displayGold ? card.gold += delta : card.quantite += delta;
 
     if (card.quantite < 0) {
         card.quantite = 0;
+    }
+    if (card.gold < 0) {
+        card.gold = 0;
     }
 
     saveLocalData();
@@ -338,18 +370,54 @@ function saveLocalData() {
     );
 }
 
-function loadLocalData() {
+function loadLocalData(jsonCards) {
 
     const saved = localStorage.getItem("collection");
-    if (saved) {
-        cards = JSON.parse(saved);
-        loadExtensions();
-        renderStats();
-        renderCards();
-        return true;
+
+    if (!saved) {
+        cards = jsonCards.map(c => ({
+            ...c,
+            quantite: 0,
+            gold: 0,
+            foil: false
+        }));
+
+        saveLocalData();
+        return false;
     }
 
-    return false;
+    const savedCards = JSON.parse(saved);
+
+    const map = Object.fromEntries(
+        savedCards.map(c => [`${c.extension}-${c.numero}`, c])
+    );
+
+    let modified = false;
+
+    cards = jsonCards.map(card => {
+
+        const key = `${card.extension}-${card.numero}`;
+        const saved = map[key];
+
+        const merged = {
+            ...card,
+            quantite: saved?.quantite ?? 0,
+            gold: saved?.gold ?? 0,
+            foil: saved?.foil ?? false
+        };
+
+        // 🔥 migration automatique si champ manquant
+        if (!saved) modified = true;
+        if (saved && saved.gold === undefined) modified = true;
+
+        return merged;
+    });
+
+    if (modified) {
+        saveLocalData();
+    }
+
+    return true;
 }
 
 function getActiveCards() {
@@ -461,7 +529,7 @@ async function publishCollection() {
         return;
     }
 
-    loadLocalData();
+    loadLocalData(jsonCards);
     renderStats();
     renderCards();
 
@@ -473,6 +541,18 @@ window.addEventListener("DOMContentLoaded", () => {
     const publishButton = document.getElementById("publishBtn");
     const copyBtn = document.getElementById("copyLinkBtn");
     const backBtn = document.getElementById("backBtn");
+    const toggleGoldBtn = document.getElementById("toggleGoldBtn");
+
+    toggleGoldBtn.addEventListener("click", () => {
+
+        displayGold = !displayGold;
+
+        document.body.classList.toggle("gold-mode", displayGold);
+        displayGold ? toggleGoldBtn.classList.add('active') : toggleGoldBtn.classList.remove('active');
+        renderStats();
+        renderCards();
+
+    });
 
     backBtn.addEventListener("click", () => {
         // enlève le paramètre URL
@@ -486,7 +566,7 @@ window.addEventListener("DOMContentLoaded", () => {
     if (readOnly) {
         backBtn.style.display = "block";
         publishButton.style.display = "none";
-        document.getElementsByTagName("h1")[0].textContent=`Collection partagée`;
+        document.getElementsByTagName("h1")[0].textContent = `Collection partagée`;
     } else {
         publishButton.addEventListener("click", publishCollection);
     }

@@ -1,5 +1,5 @@
 [
-  {"numero":"01","foil":false,"nom":"Château du Lac","extension":"S1","quantite":0,"image":"images/S1/01.PNG"},
+  {"numero":"01","foil":false,"nom":"Château du Lac","extension":"S1","quantite":0,"image":"images/S1/01.PNG"}, 
   {"numero":"02","foil":false,"nom":"Chienssassin","extension":"S1","quantite":0,"image":"images/S1/02.PNG"},
   {"numero":"03","foil":false,"nom":"La Forge","extension":"S1","quantite":0,"image":"images/S1/03.PNG"},
   {"numero":"04","foil":false,"nom":"Forteresse","extension":"S1","quantite":0,"image":"images/S1/04.PNG"},
@@ -57,6 +57,7 @@
   {"numero":"29","foil":false,"nom":"Boxeur arctique","extension":"S2","quantite":0,"image":"images/S2/29.PNG"},
   {"numero":"30","foil":false,"nom":"Boxeur ardent","extension":"S2","quantite":0,"image":"images/S2/30.PNG"},
   {"numero":"31","foil":false,"nom":"???","extension":"S2","quantite":0,"image":"images/S2/31.PNG"},
+  {"numero":"00","foil":false,"nom":"Esbrouffe","extension":"S3","quantite":0,"image":"images/S3/00.PNG"},
   {"numero":"01","foil":false,"nom":"Insecte Tonnerre","extension":"S3","quantite":0,"image":"images/S3/01.JPG"},
   {"numero":"02","foil":false,"nom":"Repos Fleuri","extension":"S3","quantite":0,"image":"images/S3/02.JPG"},
   {"numero":"03","foil":false,"nom":"Ver Savant","extension":"S3","quantite":0,"image":"images/S3/03.JPG"},
