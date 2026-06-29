@@ -57,7 +57,7 @@
   {"numero":"29","foil":false,"nom":"Boxeur arctique","extension":"S2","quantite":0,"image":"images/S2/29.PNG"},
   {"numero":"30","foil":false,"nom":"Boxeur ardent","extension":"S2","quantite":0,"image":"images/S2/30.PNG"},
   {"numero":"31","foil":false,"nom":"???","extension":"S2","quantite":0,"image":"images/S2/31.PNG"},
-  {"numero":"00","foil":false,"nom":"Esbrouffe","extension":"S3","quantite":0,"image":"images/S3/00.PNG"},
+  {"numero":"00","foil":false,"nom":"Esbrouffe","extension":"S3","quantite":0,"image":"images/S3/00.png"},
   {"numero":"01","foil":false,"nom":"Insecte Tonnerre","extension":"S3","quantite":0,"image":"images/S3/01.JPG"},
   {"numero":"02","foil":false,"nom":"Repos Fleuri","extension":"S3","quantite":0,"image":"images/S3/02.JPG"},
   {"numero":"03","foil":false,"nom":"Ver Savant","extension":"S3","quantite":0,"image":"images/S3/03.JPG"},
