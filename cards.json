@@ -1,4 +1,5 @@
 [
+  {"numero":"00","foil":false,"nom":"Esbroufe","extension":"S1","quantite":0,"image":"images/S1/00.png"},
   {"numero":"01","foil":false,"nom":"Château du Lac","extension":"S1","quantite":0,"image":"images/S1/01.PNG"}, 
   {"numero":"02","foil":false,"nom":"Chienssassin","extension":"S1","quantite":0,"image":"images/S1/02.PNG"},
   {"numero":"03","foil":false,"nom":"La Forge","extension":"S1","quantite":0,"image":"images/S1/03.PNG"},
@@ -26,6 +27,7 @@
   {"numero":"25","foil":false,"nom":"Le Phare de la Nuit","extension":"S1","quantite":0,"image":"images/S1/25.PNG"},
   {"numero":"26","foil":false,"nom":"Théière Hantée","extension":"S1","quantite":0,"image":"images/S1/26.PNG"},
   {"numero":"27","foil":false,"nom":"Carte Secrète","extension":"S1","quantite":0,"image":"images/S1/27.PNG"},
+  {"numero":"00","foil":false,"nom":"Esbroufe","extension":"S2","quantite":0,"image":"images/S2/00.png"},
   {"numero":"01","foil":false,"nom":"Phoenix","extension":"S2","quantite":0,"image":"images/S2/01.PNG"},
   {"numero":"02","foil":false,"nom":"Ancre arrachée","extension":"S2","quantite":0,"image":"images/S2/02.PNG"},
   {"numero":"03","foil":false,"nom":"L'armée des rats","extension":"S2","quantite":0,"image":"images/S2/03.PNG"},
@@ -57,7 +59,7 @@
   {"numero":"29","foil":false,"nom":"Boxeur arctique","extension":"S2","quantite":0,"image":"images/S2/29.PNG"},
   {"numero":"30","foil":false,"nom":"Boxeur ardent","extension":"S2","quantite":0,"image":"images/S2/30.PNG"},
   {"numero":"31","foil":false,"nom":"???","extension":"S2","quantite":0,"image":"images/S2/31.PNG"},
-  {"numero":"00","foil":false,"nom":"Esbrouffe","extension":"S3","quantite":0,"image":"images/S3/00.png"},
+  {"numero":"00","foil":false,"nom":"Esbroufe","extension":"S3","quantite":0,"image":"images/S3/00.png"},
   {"numero":"01","foil":false,"nom":"Insecte Tonnerre","extension":"S3","quantite":0,"image":"images/S3/01.JPG"},
   {"numero":"02","foil":false,"nom":"Repos Fleuri","extension":"S3","quantite":0,"image":"images/S3/02.JPG"},
   {"numero":"03","foil":false,"nom":"Ver Savant","extension":"S3","quantite":0,"image":"images/S3/03.JPG"},
