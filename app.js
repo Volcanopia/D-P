@@ -470,7 +470,6 @@ async function publishCollection() {
     //console.log("owner_id = " + owner_id);
     //console.log("payload size = " + payload.length);
     if (existing) {
-console.log(existing);
         share_code = existing.share_code;
         recovery_code = existing.recovery_code;
 
