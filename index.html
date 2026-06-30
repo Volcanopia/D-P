@@ -1,34 +1,65 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ma Collection</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
     <header>
-   <h1>Ma Collection</h1>
-   <button id="toggleGoldBtn">★</button>
-<button id="publishBtn">Publier</button>
-<button id="backBtn" style="display:none;">
-    Retour à ma collection
-</button>
-   <select id="extensionFilter">
-       <option value="all">Toutes les extensions</option>
-   </select>
-<div id="shareBox" style="display:none; margin-top:10px; width: 100%;">
-    <p>Lien de partage :</p>
+        <h1>Ma Collection</h1>
+        <button id="toggleGoldBtn">★</button>
+        <button id="optionsBtn">⚙️</button>
 
-    <input id="shareLink" type="text" readonly style="width:100%;">
-    <button id="copyLinkBtn">Copier</button>
-</div>
-</header>
-<div id="statsContainer" class="stats-container"></div>
+        <dialog id="optionsDialog">
+            <h2>Options</h2>
+
+            <label for="recoveryCode">
+                Code de récupération
+            </label>
+
+            <input id="recoveryCode" type="text" placeholder="ABCD-EFGH-IJKL" autocomplete="off">
+            <button id="restoreBtn">
+                🔄 Restaurer ma collection
+            </button>
+            <hr />
+            <button id="publishBtn">Publier</button>
+            <div id="shareBox" style="display:none; margin-top:10px; width: 100%;">
+                <strong>Code de récupération :</strong><br>
+                <input id="shareLink" type="text" readonly style="width:100%;">
+                <button id="copyLinkBtn">Copier</button>
+                <hr>
+                <strong>Code de récupération :</strong><br>
+                <span id="recovery"></span>
+                <button id="copyRecoveryCode">Copier</button>
+            </div>
+            <hr />
+            <button id="darkModeBtn">
+                🌙 Mode sombre
+            </button>
+
+            <hr />
+            <button id="closeOptionsBtn">
+                ❌
+            </button>
+        </dialog>
+
+        <button id="backBtn" style="display:none;">
+            Retour à ma collection
+        </button>
+
+        <select id="extensionFilter">
+            <option value="all">Toutes les extensions</option>
+        </select>
+    </header>
+    <div id="statsContainer" class="stats-container"></div>
 
     <main>
-<!-- <div id="debug" style="
+        <!-- <div id="debug" style="
     position:fixed;
     bottom:0;
     left:0;
@@ -45,8 +76,9 @@
         <div id="cardsContainer"></div>
     </main>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="app.js"></script>
 
 </body>
+
 </html>

@@ -1,4 +1,5 @@
 let cards = [];
+let darkMode = localStorage.getItem("darkMode") === "true";
 const params = new URLSearchParams(location.search);
 const shareCode = params.get("collection");
 
@@ -183,6 +184,21 @@ function loadExtensions() {
 
         filter.appendChild(option);
     });
+}
+
+function generateRecoveryCode() {
+    const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+    let code = "";
+
+    for (let i = 0; i < 12; i++) {
+
+        if (i > 0 && i % 4 === 0)
+            code += "-";
+
+        code += chars[Math.floor(Math.random() * chars.length)];
+    }
+
+    return code;
 }
 
 function getQuantity(card) {
@@ -426,22 +442,6 @@ function getActiveCards() {
 }
 
 filter.addEventListener("change", renderCards);
-// const publishButton = document.getElementById("publishBtn");
-// if (readOnly)
-//     publishButton.style.display = "none";
-// else
-//     publishButton.addEventListener("click", publishCollection);
-// document.getElementById("copyLinkBtn").addEventListener("click", async () => {
-
-//     const input = document.getElementById("shareLink");
-
-//     try {
-//         await navigator.clipboard.writeText(input.value);
-//         debug("Lien copié !");
-//     } catch (e) {
-//         debug("Erreur copie : " + e.message);
-//     }
-// });
 
 // Publication de la collection
 async function publishCollection() {
@@ -466,11 +466,13 @@ async function publishCollection() {
         .maybeSingle();
 
     let share_code;
+    let recovery_code;
     console.log("owner_id = " + owner_id);
     console.log("payload size = " + payload.length);
     if (existing) {
 
         share_code = existing.share_code;
+        recovery_code = existing.recovery_code;
 
         const { error } = await supabase
             .from("collections")
@@ -488,16 +490,17 @@ async function publishCollection() {
     } else {
 
         share_code = generateCode();
+        recovery_code = generateRecoveryCode();
 
         const { error } = await supabase
             .from("collections")
             .insert({
                 owner_id,
                 share_code,
+                recovery_code,
                 cards: payload
             });
         console.log(JSON.stringify({ error }));
-
         if (error) {
             debug(error.message);
             return;
@@ -508,12 +511,48 @@ async function publishCollection() {
 
     const box = document.getElementById("shareBox");
     const input = document.getElementById("shareLink");
+    const recovery = document.getElementById("recovery");
+    recovery.textContent = recovery_code;
 
     input.value = link;
     box.style.display = "block";
 
     debug("Collection publiée");
     debug(link);
+}
+
+// Récupération de la collection
+async function restoreCollection() {
+    if (readOnly) return;
+
+    const recoveryCode = document
+        .getElementById("recoveryCode")
+        .value
+        .trim()
+        .toUpperCase();
+
+    if (!recoveryCode) {
+        alert("Veuillez saisir votre code de récupération.");
+        return;
+    }
+
+    const { data, error } = await supabase.rpc("restore_collection", {
+        p_recovery_code: recoveryCode
+    });
+
+    if (error || !data || !data.length) {
+        alert("Code de récupération invalide.");
+        return;
+    }
+
+    const row = data[0];
+
+    localStorage.setItem("userId", row.owner_id);
+    localStorage.setItem("collection", JSON.stringify(row.cards));
+
+    alert("Collection restaurée avec succès.");
+
+    location.href = location.pathname;
 }
 
 (async () => {
@@ -530,6 +569,7 @@ async function publishCollection() {
     }
 
     loadLocalData(jsonCards);
+    loadExtensions();
     renderStats();
     renderCards();
 
@@ -537,9 +577,43 @@ async function publishCollection() {
 
 window.addEventListener("DOMContentLoaded", () => {
 
+    const darkModeBtn = document.getElementById("darkModeBtn");
+
+    if (darkMode) {
+        document.body.classList.add("dark-mode");
+        darkModeBtn.textContent = "☀️ Mode clair";
+    }
+    darkModeBtn.addEventListener("click", () => {
+
+    darkMode = !darkMode;
+
+    document.body.classList.toggle("dark-mode", darkMode);
+
+    localStorage.setItem("darkMode", darkMode);
+
+    darkModeBtn.textContent = darkMode
+        ? "☀️ Mode clair"
+        : "🌙 Mode sombre";
+});
+    // Options
+    const dialog = document.getElementById("optionsDialog");
+
+    document.getElementById("optionsBtn").addEventListener("click", () => {
+        dialog.showModal();
+    });
+
+    document.getElementById("closeOptionsBtn").addEventListener("click", () => {
+        dialog.close();
+    });
+
+    const restoreBtn = document.getElementById("restoreBtn");
+
+    restoreBtn.addEventListener("click", restoreCollection);
+
     // const filter = document.getElementById("extensionFilter");
     const publishButton = document.getElementById("publishBtn");
     const copyBtn = document.getElementById("copyLinkBtn");
+    const copyRecoveryBtn = document.getElementById("copyRecoveryCode");
     const backBtn = document.getElementById("backBtn");
     const toggleGoldBtn = document.getElementById("toggleGoldBtn");
 
@@ -576,6 +650,16 @@ window.addEventListener("DOMContentLoaded", () => {
 
         try {
             await navigator.clipboard.writeText(input.value);
+            debug("Lien copié !");
+        } catch (e) {
+            debug("Erreur copie : " + e.message);
+        }
+    });
+    copyRecoveryBtn.addEventListener("click", async () => {
+        const input = document.getElementById("recovery");
+
+        try {
+            await navigator.clipboard.writeText(input.textContent);
             debug("Lien copié !");
         } catch (e) {
             debug("Erreur copie : " + e.message);
