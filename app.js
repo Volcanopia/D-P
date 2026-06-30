@@ -448,7 +448,7 @@ async function publishCollection() {
     if (readOnly)
         return;
 
-    console.log("Publication...");
+    //console.log("Publication...");
 
     const owner_id = localStorage.getItem("userId");
     if (!owner_id) {
@@ -467,8 +467,8 @@ async function publishCollection() {
 
     let share_code;
     let recovery_code;
-    console.log("owner_id = " + owner_id);
-    console.log("payload size = " + payload.length);
+    //console.log("owner_id = " + owner_id);
+    //console.log("payload size = " + payload.length);
     if (existing) {
 
         share_code = existing.share_code;
@@ -500,7 +500,7 @@ async function publishCollection() {
                 recovery_code,
                 cards: payload
             });
-        console.log(JSON.stringify({ error }));
+        //console.log(JSON.stringify({ error }));
         if (error) {
             debug(error.message);
             return;
