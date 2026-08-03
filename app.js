@@ -64,7 +64,7 @@ const extensionNames = {
     S1: "L'Aventure",
     S2: "Découvertes magiques",
     S3: "L'Éveil d'Emral",
-    // S4: "???",
+    S4: "Déluge des marées",
     // S5: "???",
     // S6: "???",
     // S7: "???",

@@ -6,7 +6,9 @@
 
 body {
     font-family: Arial, sans-serif;
-    background: #f4f4f4;
+    /* background: #f4f4f4; */
+    background-image: url(images/All.png);
+    background-repeat: round;
     padding: 20px;
 }
 body.dark-mode {
@@ -179,6 +181,15 @@ div.cards-grid .S3 {
 
 div.quantity-controls .S3button {
     background-color: #488A3D;
+}
+
+div.cards-grid .S4 {
+    background-color: #91d6fb;
+    border: 1.5px solid #2C91C6;
+}
+
+div.quantity-controls .S4button {
+    background-color: #236eb1;
 }
 
 .extension-section {
